@@ -39,6 +39,9 @@ public class GameManager : MonoBehaviour {
 		DontDestroyOnLoad (gameObject);
 	}
 
-	//
+	private static int currentLevel = 0;
+	public static void NextLevel() {
+		GameObject.Find ("Curtain").GetComponent<CurtainBehavior>().FadeOutToLevel (++currentLevel);
+	}
 
 }
