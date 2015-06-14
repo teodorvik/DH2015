@@ -88,7 +88,7 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: .180000007
+  m_Radius: .100000001
 --- !u!58 &5877126
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -101,7 +101,7 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: .180000007
+  m_Radius: .100000001
 --- !u!114 &11475688
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -149,7 +149,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Radius
+      value: .100000001
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 154558}

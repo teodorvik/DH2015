@@ -39,10 +39,25 @@ public class GameManager : MonoBehaviour {
 		DontDestroyOnLoad (gameObject);
 	}
 
-	private static int currentLevel = 0;
 	public static void NextLevel() {
-		GameObject.Find ("Curtain").GetComponent<CurtainBehavior>().FadeOutToLevel (++currentLevel);
+		GameObject.Find ("Curtain").GetComponent<CurtainBehavior>().FadeOutToLevel (Application.loadedLevel + 1);
 
+	}
+
+	private static int inGoal = 0;
+
+	public static void EnterGoal() {
+		inGoal++;
+
+		if (inGoal == 4) {
+			inGoal = 0;
+			NextLevel();
+		}
+		print (inGoal);
+	}
+
+	public static void ExitGoal() {
+		inGoal--;
 	}
 
 }

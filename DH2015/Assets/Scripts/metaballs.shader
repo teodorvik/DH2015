@@ -56,7 +56,7 @@
 			// -----------------------------
 			float4 frag( fragmentInput f) : COLOR // fragment shader
 			{
-				float gooness = 2.0, size = 0.009, threshold = 0.1;
+				float gooness = 2.0, size = 0.005, threshold = 0.1;
 				float4 finalColor = float4(0.0,0.0,0.0,0.0);
 				float4 colors[4];
 				float distances[4];

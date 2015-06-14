@@ -32,5 +32,10 @@ public class CurtainBehavior : MonoBehaviour {
 				Application.LoadLevel(nextLevel);
 			}
 		}
+
+		if (Input.GetButtonDown ("O")) {
+			print ("O pressed");
+			GameObject.Find ("Curtain").GetComponent<CurtainBehavior> ().FadeOutToLevel (Application.loadedLevel);
+		}
 	}
 }
