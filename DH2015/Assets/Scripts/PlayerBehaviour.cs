@@ -21,7 +21,7 @@ public class PlayerBehaviour : MonoBehaviour {
 		renderer = GetComponent<SpriteRenderer> ();
 		collisions.Add (colorId);
 		currentColorId = collisions.Sum ();
-		renderer.color = colors[currentColorId];
+		//renderer.color = colors[currentColorId];
 		Vector2 pos = new Vector2 (transform.position.x, transform.position.y);
 		history.Add (pos);
 	}
@@ -31,7 +31,7 @@ public class PlayerBehaviour : MonoBehaviour {
 			int oColorId = other.GetComponent<PlayerBehaviour>().colorId;
 			collisions.Add (oColorId);
 			currentColorId = collisions.Sum ();
-			renderer.color = colors[currentColorId];
+			//renderer.color = colors[currentColorId];
 		}
 	}
 
@@ -40,7 +40,7 @@ public class PlayerBehaviour : MonoBehaviour {
 			int oColorId = other.GetComponent<PlayerBehaviour>().colorId;
 			collisions.Remove (oColorId);
 			currentColorId = collisions.Sum ();
-			renderer.color = colors[currentColorId];
+			//renderer.color = colors[currentColorId];
 		}
 	}
 
