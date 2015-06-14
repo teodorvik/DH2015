@@ -34,7 +34,7 @@
 			struct fragmentInput
 			{
 				float4 pos : SV_POSITION;
-				float2 screenPos;
+				float2 screenPos : TEXCOORD0;
 			};
 			
 			// -----------------------------
