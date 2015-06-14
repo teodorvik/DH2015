@@ -7,10 +7,12 @@ public class CurtainBehavior : MonoBehaviour {
 	private bool xPressed = false;
 	public float speed;
 	private bool bFadeIn = true;
+	private AudioSource aSource;
 
 	void Start () {
 		canvasGroup = GetComponent<CanvasGroup> ();
 		GameManager.inGoal = 0;
+		aSource = GetComponent<AudioSource> ();
 	}
 
 	public void FadeOutToLevel(int level) {
@@ -20,6 +22,7 @@ public class CurtainBehavior : MonoBehaviour {
 	}
 
 	private int nextLevel;
+	private bool playingSound = false;
 
 	void Update() {
 		if (bFadeIn) {
@@ -27,6 +30,10 @@ public class CurtainBehavior : MonoBehaviour {
 				canvasGroup.alpha -= 0.01f * speed;
 			}
 		} else {
+			if(!playingSound) {
+				playingSound = true;
+				aSource.Play ();
+			}
 			if (canvasGroup.alpha < 1f) {
 				canvasGroup.alpha += 0.01f * speed;
 			} else {

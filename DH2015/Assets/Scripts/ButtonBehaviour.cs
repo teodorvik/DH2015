@@ -9,6 +9,7 @@ public class ButtonBehaviour : MonoBehaviour {
 	public bool state = false;
 	private bool oldState;
 
+	private AudioSource audio;
 	private SpriteRenderer renderer;
 	private int oldColorId;
 	private FieldManager fieldManager;
@@ -22,6 +23,8 @@ public class ButtonBehaviour : MonoBehaviour {
 
 		oldState = state;
 
+		audio = GetComponent<AudioSource> ();
+
 	}
 	
 	void OnTriggerStay2D(Collider2D other) {
@@ -33,6 +36,8 @@ public class ButtonBehaviour : MonoBehaviour {
 			fieldManager.GetComponent<SpriteRenderer>().color = c;
 
 			state = true;
+
+			audio.Play();
 		}
 	}
 	
@@ -44,5 +49,8 @@ public class ButtonBehaviour : MonoBehaviour {
 		c.a = 0.5f;
 		fieldManager.GetComponent<SpriteRenderer>().color = c;
 		state = false;
+
+		audio.pitch = 1.2f;
+		audio.Play();
 	}
 }
