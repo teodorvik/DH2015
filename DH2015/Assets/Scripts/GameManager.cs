@@ -39,6 +39,16 @@ public class GameManager : MonoBehaviour {
 		DontDestroyOnLoad (gameObject);
 	}
 
-	//
+	private static int score;
+
+	public static void EnterGoal() {
+		score++;
+		print (score);
+	}
+
+	public static void ExitGoal() {
+		score--;
+		print (score);
+	}
 
 }
