@@ -23,6 +23,7 @@
 			uniform float4 _yPositions;
 			
 			uniform float _cameraSize;
+			uniform int _greyscale;
 			
 			// -----------------------------
 			// Structs, sent between shaders
@@ -86,6 +87,13 @@
 					
 					for (int i = 0; i < 4; i++)
 						finalColor += metas[i] > threshold ? colors[i]/amount : float4(0.0,0.0,0.0,0.0);
+				}
+				
+				if(_greyscale == 1) {
+					// 0.299r + 0.587g + 0.114b.
+					float val = (0.299 * finalColor.x + 0.587 * finalColor.y + 0.114 * finalColor.z);
+					finalColor = float4(val,val,val,finalColor[3]);
+					//finalColor = finalColor;
 				}
 				
 				return finalColor;

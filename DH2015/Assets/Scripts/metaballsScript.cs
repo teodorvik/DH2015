@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class metaballsScript : MonoBehaviour {
-	Renderer r;
+	private Renderer r;
+	private int grey = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -42,5 +43,14 @@ public class metaballsScript : MonoBehaviour {
 		r.material.SetVector ("_xPositions", xPositions);
 		r.material.SetVector ("_yPositions", yPositions);
 		r.material.SetFloat ("_cameraSize", Camera.main.orthographicSize);
+
+		if (Input.GetKeyDown ("g")) {
+			if(grey == 1){
+				grey = 0;
+			} else {
+				grey = 1;
+			}
+			r.material.SetInt("_greyscale", grey);
+		}
 	}
 }
