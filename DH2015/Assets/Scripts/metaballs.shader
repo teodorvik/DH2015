@@ -22,6 +22,8 @@
 			uniform float4 _xPositions;
 			uniform float4 _yPositions;
 			
+			uniform float _cameraSize;
+			
 			// -----------------------------
 			// Structs, sent between shaders
 			// -----------------------------
@@ -53,7 +55,7 @@
 			// -----------------------------
 			float4 frag( fragmentInput f) : COLOR // fragment shader
 			{
-				float gooness = 2.0, size = 0.0004, threshold = 0.1;
+				float gooness = 2.0, size = 0.009, threshold = 0.1;
 				float4 finalColor = float4(0.0,0.0,0.0,0.0);
 				float4 colors[4];
 				float distances[4];
@@ -67,14 +69,14 @@
 				colors[3] = _color4;
 				
 				for (int i = 0; i < 4; i++) {
-					distances[i] = distance(float2(_xPositions[i] * aspect,_yPositions[i]), float2(f.screenPos[0] * aspect, f.screenPos[1]));
+					distances[i] = _cameraSize * distance(float2( _xPositions[i] * aspect, _yPositions[i]), float2( f.screenPos[0] * aspect, f.screenPos[1]));
 					metas[i] = size/(pow(distances[i],gooness));
 					totMeta += metas[i];
 					
 					finalColor = metas[i] > threshold ? colors[i] : finalColor;
 				}
 				
-				finalColor = totMeta > threshold * 4 ? finalColor : float4(0.0,0.0,0.0,0.0);
+				finalColor = totMeta > threshold * 3 ? finalColor : float4(0.0,0.0,0.0,0.0);
 
 				// Need to add nice blending
 				

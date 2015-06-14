@@ -6,6 +6,8 @@ public class ButtonBehaviour : MonoBehaviour {
 	public GameObject field;
 	public int newColorId;
 	public Sprite up, down;
+	public bool state = false;
+	private bool oldState;
 
 	private SpriteRenderer renderer;
 	private int oldColorId;
@@ -18,16 +20,20 @@ public class ButtonBehaviour : MonoBehaviour {
 
 		oldColorId = fieldManager.colorId;
 
+		oldState = state;
+
 	}
 	
 	void OnTriggerStay2D(Collider2D other) {
-		//GameManager.EnterGoal ();
-		
-		renderer.sprite = down;
-		fieldManager.colorId = newColorId;
-		Color c = GameManager.colors [newColorId];
-		c.a = 0.5f;
-		fieldManager.GetComponent<SpriteRenderer>().color = c;
+		if (state == false) {
+			renderer.sprite = down;
+			fieldManager.colorId = newColorId;
+			Color c = GameManager.colors [newColorId];
+			c.a = 0.5f;
+			fieldManager.GetComponent<SpriteRenderer>().color = c;
+
+			state = true;
+		}
 	}
 	
 	void OnTriggerExit2D(Collider2D other) {
@@ -37,6 +43,6 @@ public class ButtonBehaviour : MonoBehaviour {
 		Color c = GameManager.colors [oldColorId];
 		c.a = 0.5f;
 		fieldManager.GetComponent<SpriteRenderer>().color = c;
-		
+		state = false;
 	}
 }

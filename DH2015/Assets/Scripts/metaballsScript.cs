@@ -41,5 +41,6 @@ public class metaballsScript : MonoBehaviour {
 		// Send variables to shader
 		r.material.SetVector ("_xPositions", xPositions);
 		r.material.SetVector ("_yPositions", yPositions);
+		r.material.SetFloat ("_cameraSize", Camera.main.orthographicSize);
 	}
 }

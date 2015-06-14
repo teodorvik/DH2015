@@ -4,7 +4,6 @@ using System.Collections.Generic;
 public class GameManager : MonoBehaviour {
 
 	public static GameManager instance = null;
-	private static int inGoal = 0;
 
 	public static Dictionary<int, Color> colors = new Dictionary<int, Color>() {
 		{1, new Color(235f/255f,71f/255f,71f/255f)}, // Red
@@ -44,12 +43,19 @@ public class GameManager : MonoBehaviour {
 
 	public static void EnterGoal() {
 		score++;
-		print (score);
+		if (score == 4) {
+			NextMap();
+		}
 	}
 
 	public static void ExitGoal() {
 		score--;
 		print (score);
+	}
+
+	public static int currentMap = 0;
+	public static void NextMap() {
+		Application.LoadLevel (currentMap++);
 	}
 
 }
