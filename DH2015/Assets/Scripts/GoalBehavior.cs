@@ -3,27 +3,32 @@ using System.Collections;
 
 public class GoalBehavior : MonoBehaviour {
 	public int colorId;
-
+	private Color color;
 	// Use this for initialization
 	void Start () {
-		Color color = GameManager.colors [colorId];
+		color = GameManager.colors [colorId];
 		color.a = 0.5f;
 		GetComponent<SpriteRenderer> ().color = color;
 	}
 
-	void OnTriggerEnter2D() {
+	void OnTriggerEnter2D(Collider2D other) {
 		//GameManager.EnterGoal ();
-		Color color = GameManager.colors [colorId];
-		color.a = 1f;
-		GetComponent<SpriteRenderer> ().color = color;
+
+		if (other.GetComponent<PlayerBehaviour> ().colorId == colorId) {
+			color.a = 1f;
+			GameManager.EnterGoal();
+			GetComponent<SpriteRenderer> ().color = color;
+			
+		} 
 	}
 
-	void OnTriggerExit2D() {
-		//GameManager.ExitGoal ();
-		Color color = GameManager.colors [colorId];
-		color.a = 0.5f;
-		GetComponent<SpriteRenderer> ().color = color;
+	void OnTriggerExit2D(Collider2D other) {
+		if (other.GetComponent<PlayerBehaviour> ().colorId == colorId) {
+			color.a = 0.5f;
+			GameManager.ExitGoal();
+			GetComponent<SpriteRenderer> ().color = color;
+			
+		} 
 	}
-	
-	
+
 }

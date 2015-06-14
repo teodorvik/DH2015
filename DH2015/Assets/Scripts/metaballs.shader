@@ -1,9 +1,4 @@
 ﻿Shader "Cg Metaballs" { // defines the name of the shader
-
- 	properties {
- 	
- 	} 
- 	
 	SubShader {
 		Tags { "Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent" }
 		Blend SrcAlpha OneMinusSrcAlpha
@@ -21,7 +16,13 @@
 			// -----------------------------
 			uniform float4 _color1;
 			uniform float4 _color2;
-			uniform float4 _positions;
+			uniform float4 _color3;
+			uniform float4 _color4;
+			
+			uniform float4 _xPositions;
+			uniform float4 _yPositions;
+			
+			uniform float _cameraSize;
 			
 			// -----------------------------
 			// Structs, sent between shaders
@@ -54,35 +55,38 @@
 			// -----------------------------
 			float4 frag( fragmentInput f) : COLOR // fragment shader
 			{
-				// Hax fix
+				float gooness = 2.0, size = 0.009, threshold = 0.1;
+				float4 finalColor = float4(0.0,0.0,0.0,0.0);
+				float4 colors[4];
+				float distances[4];
+				float metas[4];
+				float totMeta = 0;
 				float aspect = _ScreenParams.x/_ScreenParams.y;
-				float aspect2 = _ScreenParams.y/_ScreenParams.x;
-				_positions[0] *= aspect + 0.5;
-				_positions[2] *= aspect + 0.5;
-				f.screenPos.x *= aspect + 0.5;
-				f.screenPos.y *= aspect2 + 0.5;
-				_positions[1] *= aspect2 + 0.5;
-				_positions[3] *= aspect2 + 0.5;
-			
-				float gooness = 3.0, size = 0.0003, threshold = 0.2;
-				float4 finalColor;
+				int amount = 0;
 				
-				float dist1 = distance(float2(_positions[0],_positions[1]), float2(f.screenPos[0], f.screenPos[1]));
-				float meta 	= size/(pow(dist1,gooness));
+				colors[0] = _color1;
+				colors[1] = _color2;
+				colors[2] = _color3;
+				colors[3] = _color4;
 				
-				float dist2 = distance(float2(_positions[2],_positions[3]), float2(f.screenPos[0], f.screenPos[1]));
-				float meta2 = size/(pow(dist2,gooness));
+				for (int i = 0; i < 4; i++) {
+					distances[i] = _cameraSize * distance(float2( _xPositions[i] * aspect, _yPositions[i]), float2( f.screenPos[0] * aspect, f.screenPos[1]));
+					metas[i] = size/(pow(distances[i],gooness));
+					totMeta += metas[i];
+					
+					finalColor = metas[i] > threshold ? colors[i] : finalColor;
+					amount += metas[i] > threshold ? 1 : 0;
+				}
 				
-				finalColor = meta > threshold/2 ? _color1 : float4(0.0,0.0,0.0,0.0);
-				finalColor = meta2 > threshold/2 ? _color2 : finalColor;
-				finalColor = meta + meta2 > threshold ? finalColor : float4(0.0,0.0,0.0,0.0);
-				
-				// Normalize
-				float temp = dist1;
-				dist1 = (dist1 - min(dist1,dist2)) / (max(dist1,dist2) - min(dist1,dist2));
-				dist2 = (dist2 - min(temp,dist2)) / (max(temp,dist2) - min(temp,dist2));
-				
-				finalColor = meta > threshold/2 && meta2 > threshold/2 ? dist1 * _color2 + dist2* _color1 : finalColor;
+				finalColor = totMeta > threshold * 3 ? finalColor : float4(0.0,0.0,0.0,0.0);
+
+				// Blend!!
+				if (amount > 1 && totMeta > threshold * 3) {
+					finalColor = float4(0.0,0.0,0.0,1.0);
+					
+					for (int i = 0; i < 4; i++)
+						finalColor += metas[i] > threshold ? colors[i]/amount : float4(0.0,0.0,0.0,0.0);
+				}
 				
 				return finalColor;
 			}

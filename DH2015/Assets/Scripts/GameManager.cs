@@ -4,7 +4,6 @@ using System.Collections.Generic;
 public class GameManager : MonoBehaviour {
 
 	public static GameManager instance = null;
-	private static int inGoal = 0;
 
 	public static Dictionary<int, Color> colors = new Dictionary<int, Color>() {
 		{1, new Color(235f/255f,71f/255f,71f/255f)}, // Red
@@ -23,6 +22,7 @@ public class GameManager : MonoBehaviour {
 		
 		{7, new Color(184f/255f,75f/255f,20f/255f)},  // Red + Green + Blue = Brown
 		{11, new Color(184f/255f,75f/255f,20f/255f)}, // Red + Green + Yellow = Brown
+		{13, new Color(184f/255f,75f/255f,20f/255f)}, // Red + Blue + Yellow = Brown
 		
 		{14, new Color(126f/255f,235f/255f,71f/255f)}, // Green + Blue + Yellow = Green
 		
@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour {
 	private static int currentLevel = 0;
 	public static void NextLevel() {
 		GameObject.Find ("Curtain").GetComponent<CurtainBehavior>().FadeOutToLevel (++currentLevel);
+
 	}
 
 }
