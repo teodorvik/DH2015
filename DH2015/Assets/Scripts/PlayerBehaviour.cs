@@ -7,50 +7,52 @@ public class PlayerBehaviour : MonoBehaviour {
 	public float speed;
 	public char player;
 	public int colorId;
+	public int currentColorId;
 
 	private SpriteRenderer renderer;
 
 	private List<int> collisions = new List<int>();
-
-	private Dictionary<int, Color> colors = new Dictionary<int, Color>() {
-		{1, new Color(1f,0f,0f)}, // Red
-		{2, new Color(0f,1f,0f)}, // Green
-		{4, new Color(0f,0f,1f)}, // Blue
-		{8, new Color(1f,1f,0f)}, // Yellow
-
-		{3, new Color(1f,1f,1f)}, // Red + Green = Brown
-		{5, new Color(1f,0f,1f)}, // Red + Blue = Purple
-		{9, new Color(1f,1f,1f)}, // Red + Yellow = Orange
-
-		{6, new Color(0f,1f,1f)},  // Green + Blue = Turqoise  
-		{10, new Color(1f,1f,1f)}, // Green + Yellow = Lime green
-
-		{12, new Color(0f,1f,0f)}, // Blue + Yellow = Green
-
-		{7, new Color(1f,1f,1f)},  // Red + Green + Blue = Brown
-		{11, new Color(1f,1f,1f)}, // Red + Green + Yellow = Brown
-
-		{14, new Color(1f,1f,1f)}, // Green + Blue + Yellow = Green
-
-		{15, new Color(1f,1f,1f)} // Red + Green + Blue + Yellow = Brown
-	};
+	private List<Vector2> history = new List<Vector2>();
+	
+	private Dictionary<int, Color> colors;
 	
 	void Start() {
+		colors = GameManager.colors;
 		renderer = GetComponent<SpriteRenderer> ();
 		collisions.Add (colorId);
-		renderer.color = colors[collisions.Sum()];
+		currentColorId = collisions.Sum ();
+		renderer.color = colors[currentColorId];
+		Vector2 pos = new Vector2 (transform.position.x, transform.position.y);
+		history.Add (pos);
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
-		int oColorId = other.GetComponent<PlayerBehaviour>().colorId;
-		collisions.Add (oColorId);
-		renderer.color = colors[collisions.Sum()];
+		if (other.gameObject.layer == 8) { // Layer 8: Players
+			int oColorId = other.GetComponent<PlayerBehaviour>().colorId;
+			collisions.Add (oColorId);
+			currentColorId = collisions.Sum ();
+			renderer.color = colors[currentColorId];
+		}
 	}
 
 	void OnTriggerExit2D(Collider2D other) {
-		int oColorId = other.GetComponent<PlayerBehaviour>().colorId;
-		collisions.Remove (oColorId);
-		renderer.color = colors[collisions.Sum()];
+		if (other.gameObject.layer == 8) { // Layer 8: Players
+			int oColorId = other.GetComponent<PlayerBehaviour>().colorId;
+			collisions.Remove (oColorId);
+			currentColorId = collisions.Sum ();
+			renderer.color = colors[currentColorId];
+		}
+	}
+
+	void Update() {
+		Vector2 pos = new Vector2 (transform.position.x, transform.position.y);
+		Vector2 oldPos = history[history.Count - 1];
+		float delta = Vector2.Distance (pos, oldPos);
+
+		if (delta > 0.1f) {
+			history.Add (pos);
+			print(pos);
+		}
 	}
 
 	void FixedUpdate () {
@@ -59,9 +61,12 @@ public class PlayerBehaviour : MonoBehaviour {
 
 		Vector3 force = new Vector3(x * speed, y * speed);
 
-		//print (force);
 		GetComponent<Rigidbody2D>().AddForce(force);
+	}
 
+	public void Kill() {
+		print ("A Player Died");
+		transform.position = history [0];
 	}
 }
 
