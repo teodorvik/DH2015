@@ -27,7 +27,7 @@ public class PlayerBehaviour : MonoBehaviour {
 		history.Add (pos);
 	}
 
-	void OnCollisionEnter2D(Collider2D other) {
+	void OnTriggerEnter2D(Collider2D other) {
 		if (other.gameObject.layer == 8) { // Layer 8: Players
 			int oColorId = other.GetComponent<PlayerBehaviour>().colorId;
 			collisions.Add (oColorId);
@@ -36,7 +36,7 @@ public class PlayerBehaviour : MonoBehaviour {
 		}
 	}
 
-	void OnCollisionExit2D(Collider2D other) {
+	void OnTriggerExit2D(Collider2D other) {
 		if (other.gameObject.layer == 8) { // Layer 8: Players
 			int oColorId = other.GetComponent<PlayerBehaviour>().colorId;
 			collisions.Remove (oColorId);

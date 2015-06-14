@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class GameManager : MonoBehaviour {
 
 	public static GameManager instance = null;
+	private static int inGoal = 0;
 
 	public static Dictionary<int, Color> colors = new Dictionary<int, Color>() {
 		{1, new Color(235f/255f,71f/255f,71f/255f)}, // Red
@@ -27,7 +28,7 @@ public class GameManager : MonoBehaviour {
 		
 		{15, new Color(184f/255f,75f/255f,20f/255f)} // Red + Green + Blue + Yellow = Brown
 	};
-
+		
 	void Awake()  {
 		if (instance == null) {
 			instance = this;
@@ -37,5 +38,7 @@ public class GameManager : MonoBehaviour {
 
 		DontDestroyOnLoad (gameObject);
 	}
+
+	//
 
 }
