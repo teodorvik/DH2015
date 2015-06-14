@@ -21,7 +21,19 @@ public class FieldManager : MonoBehaviour {
 		if (other.gameObject.layer == 8) { // Layer 8: Players
 			PlayerBehaviour Player = other.GetComponent<PlayerBehaviour>();
 			int pColorId = Player.currentColorId;
-			if (Player.currentColorId != colorId) {
+			switch (pColorId) {
+			case 12:
+			case 14:
+				pColorId = 2;
+				break;
+			case 7:
+			case 11:
+			case 15:
+				pColorId = 3;
+				break;
+
+			}
+			if (pColorId != colorId) {
 				Player.Kill();
 			}
 		}

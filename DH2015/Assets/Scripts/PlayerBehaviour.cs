@@ -8,6 +8,7 @@ public class PlayerBehaviour : MonoBehaviour {
 	public char player;
 	public int colorId;
 	public int currentColorId;
+	public GameObject Blood;
 
 	private SpriteRenderer renderer;
 
@@ -66,6 +67,13 @@ public class PlayerBehaviour : MonoBehaviour {
 
 	public void Kill() {
 		print ("A Player Died");
+
+		var color = colors [colorId];
+		color.a = 0.5f;
+
+		Blood.GetComponent<ParticleSystem> ().startColor = color;
+		Instantiate (Blood, transform.position, transform.rotation);
+
 		transform.position = history [0];
 	}
 }
