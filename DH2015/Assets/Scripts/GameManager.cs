@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour {
 		}
 
 		DontDestroyOnLoad (gameObject);
+		
 	}
 
 	public static void NextLevel() {
@@ -44,13 +45,12 @@ public class GameManager : MonoBehaviour {
 
 	}
 
-	private static int inGoal = 0;
+	public static int inGoal = 0;
 
 	public static void EnterGoal() {
 		inGoal++;
 
-		if (inGoal == 4) {
-			inGoal = 0;
+		if (inGoal >= 4) {
 			NextLevel();
 		}
 		print (inGoal);

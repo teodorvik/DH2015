@@ -10,6 +10,7 @@ public class CurtainBehavior : MonoBehaviour {
 
 	void Start () {
 		canvasGroup = GetComponent<CanvasGroup> ();
+		GameManager.inGoal = 0;
 	}
 
 	public void FadeOutToLevel(int level) {
@@ -29,7 +30,7 @@ public class CurtainBehavior : MonoBehaviour {
 			if (canvasGroup.alpha < 1f) {
 				canvasGroup.alpha += 0.01f * speed;
 			} else {
-				Application.LoadLevel(nextLevel);
+				Application.LoadLevel(nextLevel % Application.levelCount);
 			}
 		}
 
