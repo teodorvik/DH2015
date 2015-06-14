@@ -8,7 +8,7 @@ public class PlayerBehaviour : MonoBehaviour {
 	public char player;
 	public int colorId;
 	public int currentColorId;
-	public GameObject Blood;
+	//public GameObject Blood;
 
 	private SpriteRenderer renderer;
 
@@ -22,7 +22,7 @@ public class PlayerBehaviour : MonoBehaviour {
 		renderer = GetComponent<SpriteRenderer> ();
 		collisions.Add (colorId);
 		currentColorId = collisions.Sum ();
-		//renderer.color = colors[currentColorId];
+		renderer.color = colors[currentColorId];
 		Vector2 pos = new Vector2 (transform.position.x, transform.position.y);
 		history.Add (pos);
 	}
@@ -71,8 +71,8 @@ public class PlayerBehaviour : MonoBehaviour {
 		var color = colors [colorId];
 		color.a = 0.5f;
 
-		Blood.GetComponent<ParticleSystem> ().startColor = color;
-		Instantiate (Blood, transform.position, transform.rotation);
+		//Blood.GetComponent<ParticleSystem> ().startColor = color;
+		//Instantiate (Blood, transform.position, transform.rotation);
 
 		transform.position = history [0];
 	}
