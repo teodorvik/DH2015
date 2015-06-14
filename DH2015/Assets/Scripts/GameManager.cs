@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour {
 		
 		{7, new Color(184f/255f,75f/255f,20f/255f)},  // Red + Green + Blue = Brown
 		{11, new Color(184f/255f,75f/255f,20f/255f)}, // Red + Green + Yellow = Brown
+		{13, new Color(184f/255f,75f/255f,20f/255f)}, // Red + Blue + Yellow = Brown
 		
 		{14, new Color(126f/255f,235f/255f,71f/255f)}, // Green + Blue + Yellow = Green
 		
