@@ -39,23 +39,10 @@ public class GameManager : MonoBehaviour {
 		DontDestroyOnLoad (gameObject);
 	}
 
-	private static int score;
+	private static int currentLevel = 0;
+	public static void NextLevel() {
+		GameObject.Find ("Curtain").GetComponent<CurtainBehavior>().FadeOutToLevel (++currentLevel);
 
-	public static void EnterGoal() {
-		score++;
-		if (score == 4) {
-			NextMap();
-		}
-	}
-
-	public static void ExitGoal() {
-		score--;
-		print (score);
-	}
-
-	public static int currentMap = 0;
-	public static void NextMap() {
-		Application.LoadLevel (currentMap++);
 	}
 
 }
