@@ -62,6 +62,7 @@
 				float metas[4];
 				float totMeta = 0;
 				float aspect = _ScreenParams.x/_ScreenParams.y;
+				int amount = 0;
 				
 				colors[0] = _color1;
 				colors[1] = _color2;
@@ -74,11 +75,18 @@
 					totMeta += metas[i];
 					
 					finalColor = metas[i] > threshold ? colors[i] : finalColor;
+					amount += metas[i] > threshold ? 1 : 0;
 				}
 				
 				finalColor = totMeta > threshold * 3 ? finalColor : float4(0.0,0.0,0.0,0.0);
 
-				// Need to add nice blending
+				// Blend!!
+				if (amount > 1 && totMeta > threshold * 3) {
+					finalColor = float4(0.0,0.0,0.0,1.0);
+					
+					for (int i = 0; i < 4; i++)
+						finalColor += metas[i] > threshold ? colors[i]/amount : float4(0.0,0.0,0.0,0.0);
+				}
 				
 				return finalColor;
 			}
