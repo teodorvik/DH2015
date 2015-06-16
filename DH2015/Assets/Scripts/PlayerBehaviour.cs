@@ -8,6 +8,7 @@ public class PlayerBehaviour : MonoBehaviour {
 	public char player;
 	public int colorId;
 	public int currentColorId;
+	public bool illigal;
 	//public GameObject Blood;
 
 	private SpriteRenderer renderer;

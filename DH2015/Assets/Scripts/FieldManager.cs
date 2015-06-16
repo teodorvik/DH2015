@@ -50,8 +50,15 @@ public class FieldManager : MonoBehaviour {
 			}
 			if (pColorId != colorId) {
 				other.attachedRigidbody.AddForce( aliens[other.GetInstanceID()] * strength);
+				other.GetComponent<PlayerBehaviour>().illigal = true;
+			} else {
+				other.GetComponent<PlayerBehaviour>().illigal = false;
 			}
 		}
 
+	}
+
+	void OnTriggerExit2D(Collider2D other) {
+		other.GetComponent<PlayerBehaviour>().illigal = false;
 	}
 }
