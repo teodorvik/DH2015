@@ -2019,11 +2019,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11475688, guid: caa71451595e6b54db04ff7af574f932, type: 2}
       propertyPath: player
-      value: 49
+      value: 51
       objectReference: {fileID: 0}
     - target: {fileID: 11475688, guid: caa71451595e6b54db04ff7af574f932, type: 2}
       propertyPath: colorId
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: caa71451595e6b54db04ff7af574f932, type: 2}
@@ -4119,7 +4119,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11475688, guid: caa71451595e6b54db04ff7af574f932, type: 2}
       propertyPath: player
-      value: 51
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: caa71451595e6b54db04ff7af574f932, type: 2}
@@ -4258,11 +4258,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11475688, guid: caa71451595e6b54db04ff7af574f932, type: 2}
       propertyPath: player
-      value: 50
+      value: 49
       objectReference: {fileID: 0}
     - target: {fileID: 11475688, guid: caa71451595e6b54db04ff7af574f932, type: 2}
       propertyPath: colorId
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: caa71451595e6b54db04ff7af574f932, type: 2}
@@ -4826,6 +4826,14 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 123626, guid: 7c5d9cb6f3b71be4d8354bf30eae59aa, type: 2}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 179316, guid: 7c5d9cb6f3b71be4d8354bf30eae59aa, type: 2}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7c5d9cb6f3b71be4d8354bf30eae59aa, type: 2}
   m_IsPrefabParent: 0
@@ -5033,6 +5041,14 @@ Prefab:
     - target: {fileID: 154558, guid: caa71451595e6b54db04ff7af574f932, type: 2}
       propertyPath: m_Name
       value: Player 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 11475688, guid: caa71451595e6b54db04ff7af574f932, type: 2}
+      propertyPath: player
+      value: 52
+      objectReference: {fileID: 0}
+    - target: {fileID: 11475688, guid: caa71451595e6b54db04ff7af574f932, type: 2}
+      propertyPath: colorId
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: caa71451595e6b54db04ff7af574f932, type: 2}
@@ -7008,6 +7024,14 @@ Prefab:
     - target: {fileID: 411304, guid: 99f163f77e15e2a4892b3a2124df3cc9, type: 2}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 126704, guid: 99f163f77e15e2a4892b3a2124df3cc9, type: 2}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 185362, guid: 99f163f77e15e2a4892b3a2124df3cc9, type: 2}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 99f163f77e15e2a4892b3a2124df3cc9, type: 2}

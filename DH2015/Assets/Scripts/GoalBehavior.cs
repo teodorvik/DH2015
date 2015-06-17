@@ -2,11 +2,19 @@
 using System.Collections;
 
 public class GoalBehavior : MonoBehaviour {
-	public int colorId;
 	private Color color;
+
+	public enum colorNames {
+		Red = 1,
+		Green = 2,
+		Blue = 4,
+		Yellow = 8
+	};
+	
+	public colorNames colorId;
 	// Use this for initialization
 	void Start () {
-		color = GameManager.colors [colorId];
+		color = GameManager.colors [(int)colorId];
 		color.a = 0.5f;
 		GetComponent<SpriteRenderer> ().color = color;
 	}
@@ -14,7 +22,7 @@ public class GoalBehavior : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other) {
 		//GameManager.EnterGoal ();
 
-		if (other.GetComponent<PlayerBehaviour> ().colorId == colorId) {
+		if ((int)other.GetComponent<PlayerBehaviour> ().colorId == (int)colorId) {
 			color.a = 1f;
 			GameManager.EnterGoal();
 			GetComponent<SpriteRenderer> ().color = color;
@@ -23,7 +31,7 @@ public class GoalBehavior : MonoBehaviour {
 	}
 
 	void OnTriggerExit2D(Collider2D other) {
-		if (other.GetComponent<PlayerBehaviour> ().colorId == colorId) {
+		if ((int)other.GetComponent<PlayerBehaviour> ().colorId == (int)colorId) {
 			color.a = 0.5f;
 			GameManager.ExitGoal();
 			GetComponent<SpriteRenderer> ().color = color;

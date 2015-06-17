@@ -2,6 +2,17 @@
 using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour {
+	public enum colorNames {
+		Red = 1,
+		Green,
+		Brown,
+		Blue,
+		Purple,
+		Turqoise, 
+		Yellow = 8,
+		Orange,
+		LimeGreen
+	};
 
 	public static GameManager instance = null;
 

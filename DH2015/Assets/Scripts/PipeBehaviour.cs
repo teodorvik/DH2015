@@ -14,7 +14,7 @@ public class PipeBehaviour : MonoBehaviour {
 		sRend = GetComponent<SpriteRenderer> ();
 		oldColor = sRend.color;
 
-		newColor = GameManager.colors [bBehaviour.newColorId];
+//		newColor = GameManager.colors [bBehaviour.newColorId];
 		newColor.a = 0.25f;
 	}
 	

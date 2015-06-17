@@ -1,79 +1,86 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class MouseInput : MonoBehaviour {
 
 	public float range;
-	public float strength;
+	public float pull;
+	public float push;
+	public float tapTime;
 
 	private float downTime;
+	private List<GameObject> players = new List<GameObject>();
 
-	// Use this for initialization
-	void Start () {
-	
+	private GameObject cursor;
+
+	void Start() {
+		cursor = GameObject.Find("Cursor");
+
 	}
 
 	void Update() {
 		if (Input.GetMouseButtonDown (0)) {
+			Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			GameObject[] _players = GameObject.FindGameObjectsWithTag("Player");
+
 			downTime = Time.time;
+			mousePos.z = 0;
+
+			foreach (var player in _players) {
+				float distance = Vector3.Distance(mousePos, player.transform.position);
+
+				if (distance < range) {
+					players.Add(player);
+				}
+			}
+
+
 		}
 		
 		if (Input.GetMouseButtonUp (0)) {
 			float delta = Time.time - downTime;
 			
-			Debug.Log(delta);
+			if (delta < tapTime) {
+				float angle = 360 / Mathf.Max(players.Count, 1);
+				float rAngle = Random.value * 360;
+
+				for(var i = 0; i < players.Count; i ++) {
+					var player = players[i];
+					var pController = player.GetComponent<PlayerController>();
 			
-			if (delta < 0.1f) {
-				
-				Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-				GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-				
-				mousePos.z = 0;
-
-				float angle = 360 / players.Length;
-
-				for (int i = 0; i < players.Length; i++) {
-					GameObject player = players[i];
-					float distance = Vector3.Distance(mousePos, player.transform.position);
-					bool illigal = player.GetComponent<PlayerBehaviour>().illigal;
-					
-					if (distance < range && !illigal) {
-
-						var rad = angle * i * Mathf.Deg2Rad;
+					if (!pController.inField) {
+						var rad = (angle * i + rAngle) * Mathf.Deg2Rad;
 						var direction = new Vector3(Mathf.Sin(rad), Mathf.Cos(rad));
-						float distFactor = 1 - distance / range;
 
-						player.GetComponent<Rigidbody2D>().AddForce(direction * strength * 5 * distFactor);
+						player.GetComponent<Rigidbody2D>()
+							.AddForce(direction * push);
 					}
-
-				}				
+				}			
 			}
+
+			players.Clear();
 		}
 	}
-	
-	// Update is called once per frame
+
 	void FixedUpdate () {
-
-
 		if (Input.GetMouseButton(0)) {
 			float delta = Time.time - downTime;
 			
-			if (delta > 0.1f) {
-
+			if (delta > tapTime) {
 				Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-				GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
 				mousePos.z = 0;
 
-				foreach (GameObject player in players) {
+				foreach (var player in players) {
 					float distance = Vector3.Distance(mousePos, player.transform.position);
-
-					bool illigal = player.GetComponent<PlayerBehaviour>().illigal;
-
-					if (distance < range && !illigal) {
+					
+					if (distance < range) {
 						Vector3 direction = mousePos - player.transform.position;
-						float distFactor = 1 - distance / range;
-						player.GetComponent<Rigidbody2D>().AddForce(direction * strength * distFactor);
+						var distFactor = 1 - distance/range;
+
+						player.GetComponent<Rigidbody2D>()
+							.AddForce(direction * pull * distFactor);
 					}
 				}
 			}

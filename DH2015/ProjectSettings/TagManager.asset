@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Floor
+  - Wall
+  - Field
   layers:
   - Default
   - TransparentFX
@@ -16,10 +19,10 @@ TagManager:
   - Players
   - Walls
   - Buttons
-  - 
-  - 
-  - 
-  - 
+  - Hidden
+  - Floors
+  - Wall Colliders
+  - Fields
   - 
   - 
   - 
@@ -49,4 +52,7 @@ TagManager:
     locked: 0
   - name: Fields
     uniqueID: 2092888127
+    locked: 0
+  - name: UI
+    uniqueID: 3956515589
     locked: 0
